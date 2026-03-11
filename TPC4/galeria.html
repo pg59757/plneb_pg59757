@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria — Mosteiro de Rendufe</title>
+
+    <!-- Fontes modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #f5f5f5;
+            --text: #2b2b2b;
+            --accent: #b8a47a;
+            --line: #dcd7ce;
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: "Source Serif Pro", serif;
+        }
+
+        h1, h2, h3 {
+            font-family: "Poppins", sans-serif;
+        }
+
+        /* ---------- NAV ---------- */
+        nav {
+            background: var(--white);
+            border-bottom: 1px solid var(--line);
+            padding: 18px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 45px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-family: "Poppins", sans-serif;
+            font-weight: 500;
+            font-size: 17px;
+            transition: 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* ---------- SUBHEADER ---------- */
+        .subheader {
+            height: 40vh;
+            background-image: url('mosteiro.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .subheader::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(0,0,0,0.55), rgba(0,0,0,0.15));
+        }
+
+        .subheader h1 {
+            position: relative;
+            color: white;
+            font-size: 60px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-align: center;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        /* ---------- MAIN ---------- */
+        main {
+            max-width: 900px;
+            margin: 70px auto;
+            padding: 0 30px;
+        }
+
+        /* ---------- CAIXAS EXPANSÍVEIS ---------- */
+        .gallery-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+            margin-bottom: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: block;
+        }
+
+        .gallery-box:hover {
+            transform: translateY(-4px);
+        }
+
+        .gallery-box input {
+            display: none;
+        }
+
+        .gallery-content {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .gallery-box input:checked ~ .gallery-content {
+            display: block;
+        }
+
+        .gallery-content {
+            display: none;
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .gallery-content img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+
+        /* ---------- FOOTER ---------- */
+        footer {
+            background: var(--white);
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid var(--line);
+            margin-top: 80px;
+            font-size: 15px;
+            color: var(--text);
+            font-family: "Poppins", sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <ul>
+            <li><a href="principal.html">Início</a></li>
+            <li><a href="historia.html">História</a></li>
+            <li><a href="galeria.html">Galeria</a></li>
+            <li><a href="visitas.html">Visitas</a></li>
+            <li><a href="paroquia.html">Paróquia</a></li>
+        </ul>
+    </nav>
+
+    <!-- SUBHEADER -->
+    <header class="subheader">
+        <h1>Galeria</h1>
+    </header>
+
+    <main>
+
+        <!-- CAIXA 1 -->
+        <label class="gallery-box">
+            <input type="checkbox">
+            <h3>Fotografias do Exterior</h3>
+
+            <div class="gallery-content">
+                <img src="fotos_exterior/mosteiro_exterior1.JPG">
+                <img src="fotos_exterior/mosteiro_exterior2.JPG">
+                <img src="fotos_exterior/mosteiro_exterior3.JPG">
+                <img src="fotos_exterior/mosteiro_exterior4.JPG">
+                <img src="fotos_exterior/mosteiro_exterior5.JPG">
+                <img src="fotos_exterior/mosteiro_exterior6.JPG">
+            </div>
+        </label>
+
+        <!-- CAIXA 2 -->
+        <label class="gallery-box">
+            <input type="checkbox">
+            <h3>Fotografias da Igreja</h3>
+
+            <div class="gallery-content">
+                <img src="fotos_igreja/mosteiro_igreja1.jpg">
+                <img src="fotos_igreja/mosteiro_igreja2.JPG">
+                <img src="fotos_igreja/mosteiro_igreja3.jpg">
+            </div>
+        </label>
+
+        <!-- CAIXA 3 -->
+        <label class="gallery-box">
+            <input type="checkbox">
+            <h3>Fotografias dos Claustros</h3>
+
+            <div class="gallery-content">
+                <img src="fotos_claustros/mosteiro_claustros1.JPG">
+                <img src="fotos_claustros/mosteiro_claustros2.JPG">
+                <img src="fotos_claustros/mosteiro_claustros3.JPG">
+                <img src="fotos_claustros/mosteiro_claustros4.JPG">
+                <img src="fotos_claustros/mosteiro_claustros5.JPG">
+                <img src="fotos_claustros/mosteiro_claustros6.JPG">
+            </div>
+        </label>
+
+    </main>
+
+    <footer>
+        © Mosteiro de Santo André de Rendufe
+    </footer>
+
+</body>
+</html>

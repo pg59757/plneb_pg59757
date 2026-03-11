@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitas — Mosteiro de Rendufe</title>
+
+    <!-- Fontes modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #f5f5f5;
+            --text: #2b2b2b;
+            --accent: #b8a47a;
+            --line: #dcd7ce;
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: "Source Serif Pro", serif;
+        }
+
+        h1, h2 {
+            font-family: "Poppins", sans-serif;
+        }
+
+        /* ---------- NAV ---------- */
+        nav {
+            background: var(--white);
+            border-bottom: 1px solid var(--line);
+            padding: 18px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 45px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-family: "Poppins", sans-serif;
+            font-weight: 500;
+            font-size: 17px;
+            transition: 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* ---------- SUBHEADER ---------- */
+        .subheader {
+            height: 40vh;
+            background-image: url('mosteiro.jpg'); /* mesma imagem do site */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .subheader::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(0,0,0,0.55), rgba(0,0,0,0.15));
+        }
+
+        .subheader h1 {
+            position: relative;
+            color: white;
+            font-size: 60px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-align: center;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        /* ---------- MAIN CONTENT ---------- */
+        main {
+            max-width: 1000px;
+            margin: 70px auto;
+            padding: 0 30px;
+        }
+
+        .secao-titulo {
+            text-align: center;
+            font-size: 34px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .secao-titulo::after {
+            content: "";
+            width: 70px;
+            height: 3px;
+            background: var(--accent);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .texto-visitas {
+            font-size: 20px;
+            line-height: 1.8;
+            max-width: 850px;
+            margin: 20px auto 0 auto;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        .horarios {
+            margin-top: 40px;
+            font-size: 20px;
+            line-height: 1.8;
+            max-width: 850px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .horarios strong {
+            font-family: "Poppins", sans-serif;
+            font-weight: 600;
+        }
+
+        /* ---------- FOOTER ---------- */
+        footer {
+            background: var(--white);
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid var(--line);
+            margin-top: 80px;
+            font-size: 15px;
+            color: var(--text);
+            font-family: "Poppins", sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <ul>
+            <li><a href="principal.html">Início</a></li>
+            <li><a href="historia.html">História</a></li>
+            <li><a href="galeria.html">Galeria</a></li>
+            <li><a href="visitas.html">Visitas</a></li>
+            <li><a href="paroquia.html">Paróquia</a></li>
+        </ul>
+    </nav>
+
+    <!-- SUBHEADER -->
+    <header class="subheader">
+        <h1>Visitas</h1>
+    </header>
+
+    <main>
+
+        <h2 class="secao-titulo">Horários de Visita</h2>
+
+        <p class="texto-visitas">
+            O Mosteiro de Santo André de Rendufe encontra-se aberto ao público para visitas gratuitas.
+        </p>
+
+        <div class="horarios">
+            <p><strong>Sábado</strong><br>
+            Manhã: 10h00 – 13h00<br>
+            Tarde: 14h30 – 16h30<br>
+            <u>Visitas guiadas:</u> às 11h00 e às 15h00.</p>
+
+            <p><strong>Domingo</strong><br>
+            Manhã: 10h00 – 13h00<br>
+            Tarde: 14h30 – 18h30<br>
+            <u>Visitas guiadas:</u> às 15h00 e às 16h30.</p>
+        </div>
+
+    </main>
+
+    <footer>
+        © Mosteiro de Santo André de Rendufe
+    </footer>
+
+</body>
+</html>

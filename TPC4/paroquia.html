@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paróquia — Mosteiro de Rendufe</title>
+
+    <!-- Fontes modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #f5f5f5;
+            --text: #2b2b2b;
+            --accent: #b8a47a;
+            --line: #dcd7ce;
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: "Source Serif Pro", serif;
+        }
+
+        h1, h2, h3 {
+            font-family: "Poppins", sans-serif;
+        }
+
+        /* ---------- NAV ---------- */
+        nav {
+            background: var(--white);
+            border-bottom: 1px solid var(--line);
+            padding: 18px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 45px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-family: "Poppins", sans-serif;
+            font-weight: 500;
+            font-size: 17px;
+            transition: 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* ---------- SUBHEADER ---------- */
+        .subheader {
+            height: 40vh;
+            background-image: url('mosteiro.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .subheader::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(0,0,0,0.55), rgba(0,0,0,0.15));
+        }
+
+        .subheader h1 {
+            position: relative;
+            color: white;
+            font-size: 50px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-align: center;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        /* ---------- MAIN CONTENT ---------- */
+        main {
+            max-width: 1000px;
+            margin: 70px auto;
+            padding: 0 30px;
+        }
+
+        .secao-titulo {
+            text-align: center;
+            font-size: 34px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .secao-titulo::after {
+            content: "";
+            width: 70px;
+            height: 3px;
+            background: var(--accent);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* ---------- CARDS ---------- */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+            text-align: center;
+            transition: 0.3s;
+            cursor: pointer;
+            display: block;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .card input {
+            display: none;
+        }
+
+        .conteudo {
+            display: none;
+            margin-top: 15px;
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--line);
+            font-size: 18px;
+            line-height: 1.7;
+            text-align: justify;
+            text-justify: inter-word;
+            max-width: 95%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .card input:checked ~ .conteudo {
+            display: block;
+        }
+
+        /* ---------- FOOTER ---------- */
+        footer {
+            background: var(--white);
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid var(--line);
+            margin-top: 80px;
+            font-size: 15px;
+            color: var(--text);
+            font-family: "Poppins", sans-serif;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <ul>
+            <li><a href="principal.html">Início</a></li>
+            <li><a href="historia.html">História</a></li>
+            <li><a href="galeria.html">Galeria</a></li>
+            <li><a href="visitas.html">Visitas</a></li>
+            <li><a href="paroquia.html">Paróquia</a></li>
+        </ul>
+    </nav>
+
+    <!-- SUBHEADER -->
+    <header class="subheader">
+        <h1>Paróquia de Santo André de Rendufe</h1>
+    </header>
+
+    <main>
+
+        <h2 class="secao-titulo">Atividades Paroquiais</h2>
+
+        <div class="cards-container">
+
+            <!-- CARD 1 — EUCARISTIAS -->
+            <label class="card">
+                <input type="checkbox">
+                <h3>Eucaristias</h3>
+
+                <div class="conteudo">
+                    <strong>Sábado</strong><br>
+                    17h00 — Eucaristia vespertina<br>
+                    Local: Mosteiro de Sto. André de Rendufe<br><br>
+
+                    <strong>Domingo</strong><br>
+                    11h00 — Eucaristia dominical<br>
+                    Local: Mosteiro de Sto. André de Rendufe<br><br>
+
+                    <strong>Quarta-feira</strong><br>
+                    19h00 — Eucaristia semanal<br>
+                    Local: Capela de S. Sebastião<br><br>
+                </div>
+            </label>
+
+            <!-- CARD 2 — CATEQUESE -->
+            <label class="card">
+                <input type="checkbox">
+                <h3>Catequese</h3>
+
+                <div class="conteudo">
+                    <strong>Inscrições:</strong> Abertas durante o mês de outubro.<br><br>
+                    <strong>Horários:</strong> Definidos para cada ano e comunicados pelos catequistas aos respetivos grupos.<br><br>
+                    <strong>Local:</strong> Centro Catequético de Rendufe.
+                </div>
+            </label>
+
+        </div>
+
+    </main>
+
+    <footer>
+        © Mosteiro de Santo André de Rendufe
+    </footer>
+
+</body>
+</html>

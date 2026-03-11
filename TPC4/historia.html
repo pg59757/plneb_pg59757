@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>História — Mosteiro de Rendufe</title>
+
+    <!-- Fontes modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #f5f5f5;
+            --text: #2b2b2b;
+            --accent: #b8a47a;
+            --line: #dcd7ce;
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: "Source Serif Pro", serif;
+        }
+
+        h1, h2, h3 {
+            font-family: "Poppins", sans-serif;
+        }
+
+        /* ---------- NAV ---------- */
+        nav {
+            background: var(--white);
+            border-bottom: 1px solid var(--line);
+            padding: 18px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 45px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-family: "Poppins", sans-serif;
+            font-weight: 500;
+            font-size: 17px;
+            transition: 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* ---------- SUBHEADER ---------- */
+        .subheader {
+            height: 40vh;
+            background-image: url('mosteiro.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .subheader::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(0,0,0,0.55), rgba(0,0,0,0.15));
+        }
+
+        .subheader h1 {
+            position: relative;
+            color: white;
+            font-size: 60px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-align: center;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        /* ---------- MAIN CONTENT ---------- */
+        main {
+            max-width: 1000px;
+            margin: 70px auto;
+            padding: 0 30px;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        /* ---------- ACCORDION (SEM JS) ---------- */
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin: 0;
+            text-align: center;
+        }
+
+        .conteudo {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--line);
+            font-size: 18px;
+            line-height: 1.7;
+            text-align: justify;
+            text-justify: inter-word;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Mostrar conteúdo quando checkbox está ativa */
+        #historia:checked ~ .historia-conteudo,
+        #cronologia:checked ~ .cronologia-conteudo {
+            display: block;
+        }
+
+        /* ---------- TIMELINE ---------- */
+        .timeline {
+            position: relative;
+            margin: 40px auto 10px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 3px;
+            background: #c7c1b6;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            width: 100%;
+            display: flex;
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .timeline-content {
+            width: 45%;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+            text-align: left;
+            padding-right: 10px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: auto;
+            text-align: right;
+            padding-left: 10px;
+        }
+
+        .timeline-item::after {
+            content: "";
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background: var(--bg);
+            border: 3px solid #c7c1b6;
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .timeline-content h3 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 700;
+            color: #3a3732;
+        }
+
+        .timeline-content p {
+            margin-top: 6px;
+            font-size: 19px;
+            line-height: 1.7;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        /* ---------- FOOTER ---------- */
+        footer {
+            background: var(--white);
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid var(--line);
+            margin-top: 80px;
+            font-size: 15px;
+            color: var(--text);
+            font-family: "Poppins", sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="principal.html">Início</a></li>
+            <li><a href="historia.html">História</a></li>
+            <li><a href="galeria.html">Galeria</a></li>
+            <li><a href="visitas.html">Visitas</a></li>
+            <li><a href="paroquia.html">Paróquia</a></li>
+        </ul>
+    </nav>
+
+    <header class="subheader">
+        <h1>História</h1>
+    </header>
+
+    <main>
+
+        <div class="cards-container">
+
+            <!-- CAIXA 1 — HISTÓRIA DO MOSTEIRO -->
+            <input type="checkbox" id="historia">
+            <label for="historia" class="card">
+                <h3>A História do Mosteiro</h3>
+            </label>
+
+            <div class="conteudo historia-conteudo">
+                <p>
+                    O Mosteiro de Santo André de Rendufe, na freguesia de Rendufe, concelho de Amares, nasceu no século XI
+                    e foi fundado por monges beneditinos. Tornou‑se rapidamente um dos Mosteiros mais importantes do Norte
+                    de Portugal.
+                </p>
+
+                <p>
+                    A fundação remonta a 1090 e a igreja românica ficou concluída em 1158. A comunidade beneditina manteve‑se
+                    ativa até 1834, ano da extinção das ordens religiosas em Portugal.
+                </p>
+
+                <p>
+                    O conjunto inclui a igreja, os claustros e várias dependências que serviam a vida diária dos monges.
+                    A igreja, com planta em forma de cruz, tem uma nave única e uma fachada com duas torres sineiras.
+                    No interior destacam‑se os altares em talha dourada e o teto pintado.
+                </p>
+
+                <p>
+                    Entre os séculos XVII e XVIII, o Mosteiro passou por profundas obras de renovação. A atual igreja foi
+                    construída entre 1716 e 1719, seguindo‑se a decoração barroca entre 1719 e 1725. No mesmo período foram
+                    erguidos novos espaços conventuais, como o dormitório, o celeiro e a adega. Ao longo do século XVIII
+                    continuaram as obras, incluindo a reconstrução da capela‑mor e a construção da capela do Santíssimo
+                    Sacramento.
+                </p>
+
+                <p>
+                    Os claustros, de forma quadrada, foram o centro da vida monástica. À sua volta ficavam as salas de
+                    trabalho, os dormitórios e outras áreas do convento. Depois de 1834, algumas destas dependências
+                    foram adaptadas a habitação particular, enquanto a igreja continuou a servir a comunidade paroquial.
+                </p>
+
+                <p>
+                    O Mosteiro está classificado como Imóvel de Interesse Público desde 1933 e, nos últimos anos,
+                    após várias décadas de abandono, tem sido alvo de ações de recuperação e valorização, para preservar
+                    este importante testemunho da presença beneditina no norte do país.
+                </p>
+            </div>
+
+            <!-- CAIXA 2 — CRONOLOGIA -->
+            <input type="checkbox" id="cronologia">
+            <label for="cronologia" class="card">
+                <h3>Cronologia</h3>
+            </label>
+
+            <div class="conteudo cronologia-conteudo">
+
+                <div class="timeline">
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>1090</h3>
+                            <p>Fundação do Mosteiro.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>1158</h3>
+                            <p>Conclusão da igreja românica.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>1567 – 1587</h3>
+                            <p>Criação da Congregação de S. Bento dos Reinos de Portugal; Rendufe integra‑a definitivamente em 1587.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>Século XVII</h3>
+                            <p>Construção do Mosteiro moderno e do refeitório; obras importantes na igreja e no edifício conventual.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>1716 – 1719</h3>
+                            <p>Construção da atual igreja e definição final do claustro.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>1719 – 1725</h3>
+                            <p>Decoração barroca da igreja: talha, retábulos, coro alto e órgãos.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>1729 – 1731</h3>
+                            <p>Construção de dormitório, celeiro e adega.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>1753 – 1755</h3>
+                            <p>Construção da casa da audiência, com cadeia no piso térreo.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>1756 – 1758</h3>
+                            <p>Reconstrução da abóbada e tribuna da capela‑mor.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>1762 – 1764</h3>
+                            <p>Construção de uma nova hospedaria para os hóspedes "graves" (doentes).</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>1770 – 1780</h3>
+                            <p>Construção da capela do Santíssimo Sacramento e decoração rococó.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>1790 – 1792</h3>
+                            <p>Renovação decorativa da igreja e construção da capela da Senhora do Pilar nos claustros.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>1834</h3>
+                            <p>Extinção das Ordens Religiosas; os monges deixam o Mosteiro e a igreja passa a uso paroquial.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>1933</h3>
+                            <p>Classificação como Imóvel de Interesse Público.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>1960</h3>
+                            <p>Destruição de grande parte da ala conventual, dos telhados e de elementos valiosos por um incêndio.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>2020 – 2025</h3>
+                            <p>Intervenções de conservação e projetos de recuperação do exterior e interior da igreja.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer>
+        © Mosteiro de Santo André de Rendufe
+    </footer>
+
+</body>
+</html>

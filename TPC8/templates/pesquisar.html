@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<title>Pesquisar</title>
+{% endblock %}
+
+{% block body %}
+
+<h2>Pesquisar Conceitos</h2>
+
+<form method="get" action="/pesquisar" class="mb-4">
+
+    <label for="query" class="form-label">Query</label>
+    <input type="text" id="query" name="query" class="form-control" value="{{ query }}">
+
+    <div class="form-check mt-3">
+        <input class="form-check-input" type="checkbox" id="word_boundary" name="word_boundary"
+               {% if word_boundary %}checked{% endif %}>
+        <label class="form-check-label" for="word_boundary">Word Boundary</label>
+    </div>
+
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="case_sensitive" name="case_sensitive"
+               {% if case_sensitive %}checked{% endif %}>
+        <label class="form-check-label" for="case_sensitive">Case Sensitive</label>
+    </div>
+
+    <button class="btn btn-primary mt-3">Pesquisar</button>
+</form>
+
+{% if resultados %}
+    {% for termo, descricao in resultados.items() %}
+        <p>
+            <b>{{ termo }}</b>:
+            {{ descricao | safe }}
+        </p>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+        <h2 class="mb-0">{{ conceito.tg.pal }}</h2>
+        <span class="badge bg-secondary">{{ conceito.tg.gen or 'N/A' }}</span>
+    </div>
+    <div class="card-body">
+
+        {% if conceito.tema %}
+        <p><strong>Áreas:</strong>
+            {% for t in conceito.tema %}
+                <a href="{{ url_for('listar_conceitos', tema=t) }}" class="badge bg-info text-dark text-decoration-none">{{ t }}</a>
+            {% endfor %}
+        </p>
+        {% endif %}
+
+        {% if conceito.tg.sin %}
+        <p>
+            <strong>Sinónimos:</strong>
+            {% if conceito.tg.sin is string %}
+                {{ conceito.tg.sin }}
+            {% else %}
+                {{ conceito.tg.sin | join(', ') }}
+            {% endif %}
+        </p>
+        {% endif %}
+
+        {% if conceito.def %}
+        <p><strong>Definição:</strong> {{ conceito.def }}</p>
+        {% endif %}
+
+        {% if conceito.trad %}
+        <h5 class="mt-4">Traduções e Equivalências:</h5>
+        <div class="table-responsive">
+            <table class="table table-hover mt-2">
+                <thead class="table-light">
+                    <tr><th>Língua</th><th>Termos</th></tr>
+                </thead>
+                <tbody>
+                    {% for lingua, termo in conceito.trad.items() %}
+                    <tr>
+                        <td class="text-capitalize">
+                            <strong>
+                                {% if lingua in lingua_label %}
+                                    {{ lingua_label[lingua] }}
+                                {% else %}
+                                    {{ lingua }}
+                                {% endif %}
+                            </strong>
+                        </td>
+                        <td>
+                            {# Separar termos pelo ponto-e-vírgula e mostrar como badges #}
+                            {% for t in termo.split(';') %}
+                                {% set t_clean = t.strip() %}
+                                {% if t_clean %}
+                                    {% if t_clean in vocab_pal %}
+                                        <a href="{{ url_for('detalhe', designacao=t_clean) }}"
+                                           class="badge bg-primary text-decoration-none me-1">{{ t_clean }}</a>
+                                    {% else %}
+                                        <span class="badge bg-light text-dark border me-1">{{ t_clean }}</span>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+        {% if conceito.relacionados %}
+        <h5 class="mt-4">Termos Relacionados:</h5>
+        <ul class="list-group list-group-flush">
+            {% for rel in conceito.relacionados %}
+            <li class="list-group-item px-0">
+                {# Extrair o nome do termo (antes do primeiro ponto) para tentar linkar #}
+                {% set rel_stripped = rel.strip() %}
+                {% set dot_pos = rel_stripped.find('.') %}
+                {% if dot_pos > 0 %}
+                    {% set rel_nome = rel_stripped[:dot_pos].strip() %}
+                    {% set rel_desc = rel_stripped[dot_pos+1:].strip() %}
+                {% else %}
+                    {% set rel_nome = rel_stripped %}
+                    {% set rel_desc = "" %}
+                {% endif %}
+
+                {% if rel_nome in vocab_pal %}
+                    <a href="{{ url_for('detalhe', designacao=rel_nome) }}" class="fw-semibold text-decoration-none">{{ rel_nome }}</a>
+                {% else %}
+                    <strong>{{ rel_nome }}</strong>
+                {% endif %}
+                {% if rel_desc %}
+                    <span class="text-muted">. {{ rel_desc }}</span>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+    </div>
+</div>
+<div class="mt-3 d-flex gap-2">
+    <a href="{{ url_for('listar_conceitos') }}" class="btn btn-secondary">Voltar à lista</a>
+    <a href="{{ url_for('editar_get', designacao=conceito.tg.pal) }}" class="btn btn-outline-dark">Editar</a>
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block title %}Editar — {{ conceito.tg.pal }}{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-dark text-white">
+        <h2 class="mb-0">Editar Conceito: {{ conceito.tg.pal }}</h2>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Termo (Galego)</label>
+                    <input type="text" class="form-control bg-light" value="{{ conceito.tg.pal }}" disabled>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Género Gramatical</label>
+                    <input type="text" class="form-control" name="genero" value="{{ conceito.tg.gen or '' }}" placeholder="Ex: m, f">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Sinónimos</label>
+                <input type="text" class="form-control" name="sinonimos" value="{{ conceito.tg.sin | join(', ') if conceito.tg.sin else '' }}" placeholder="Separados por vírgula">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Áreas Temáticas</label>
+                <input type="text" class="form-control" name="tema" value="{{ conceito.tema | join(', ') if conceito.tema else '' }}" placeholder="Ex: Doença Infecciosa">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Definição Técnica</label>
+                <textarea class="form-control" name="definicao" rows="3">{{ conceito.def or '' }}</textarea>
+            </div>
+
+            <h5 class="mt-4 border-bottom pb-2 text-secondary text-uppercase small fw-bold">Traduções e Equivalências</h5>
+            <div class="row g-3">
+                {% set trad = conceito.trad if conceito.trad else {} %}
+                <div class="col-md-4">
+                    <label class="form-label font-monospace small">Português</label>
+                    <input type="text" class="form-control" name="pt" value="{{ trad.get('pt','') }}">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label font-monospace small">Espanhol</label>
+                    <input type="text" class="form-control" name="es" value="{{ trad.get('es','') }}">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label font-monospace small">Inglês</label>
+                    <input type="text" class="form-control" name="en" value="{{ trad.get('en','') }}">
+                </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-top">
+                <button type="submit" class="btn btn-dark px-4">Guardar</button>
+                <a href="/conceitos/{{ conceito.tg.pal | urlencode }}" class="btn btn-outline-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

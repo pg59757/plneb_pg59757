@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4 text-dark">Índice Alfabético e Pesquisa</h2>
+
+    <form action="{{ url_for('listar_conceitos') }}" method="GET" class="d-flex gap-2 mb-4">
+        <input type="text" class="form-control" name="q"
+               value="{{ query or '' }}" placeholder="Pesquise por termo, tradução ou sinónimo...">
+        {% if tema_filtro %}
+            <input type="hidden" name="tema" value="{{ tema_filtro }}">
+        {% endif %}
+        <button type="submit" class="btn btn-dark">Pesquisar</button>
+        {% if query or tema_filtro %}
+            <a href="{{ url_for('listar_conceitos') }}" class="btn btn-outline-secondary">Limpar</a>
+        {% endif %}
+    </form>
+
+    {% if tema_filtro %}
+        <p class="text-muted">
+            A filtrar por tema: <span class="badge bg-info text-dark">{{ tema_filtro }}</span>
+            <a href="{{ url_for('listar_conceitos', q=query) }}" class="ms-2 small text-secondary">remover filtro</a>
+        </p>
+    {% endif %}
+
+    {% if query %}
+        <p class="text-muted">
+            {% if conceitos %}
+                {{ conceitos|length }} resultado(s) encontrado(s) para "<strong>{{ query }}</strong>".
+            {% else %}
+                Nenhum resultado encontrado para "<strong>{{ query }}</strong>".
+            {% endif %}
+        </p>
+    {% endif %}
+
+    <div class="row">
+        {% for c in conceitos %}
+        <div class="col-md-4 mb-2">
+            <a href="{{ url_for('detalhe', designacao=c.tg.pal) }}" class="list-group-item list-group-item-action border rounded p-2 shadow-sm d-flex justify-content-between align-items-center">
+                <span>{{ c.tg.pal }}</span>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}Início — MedLex{% endblock %}
+
+{% block content %}
+<div class="p-5 mb-4 bg-dark text-white rounded shadow">
+    <div class="container-fluid py-2">
+        <h1 class="display-5 fw-bold">Dicionário Médico & Módulo Científico</h1>
+        <p class="col-md-10 fs-5 text-secondary">Pesquise termos clínicos cruzados em múltiplos idiomas e faça consultas inteligentes sobre a base unificada de casos e publicações médicas.</p>
+        <div class="mt-4">
+            <a href="/conceitos" class="btn btn-info btn-lg me-2">Explorar Vocabulário</a>
+            <a href="/ir" class="btn btn-outline-light btn-lg">Artigos Científicos</a>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 text-center mb-4">
+    <div class="col-md-6">
+        <div class="card shadow p-4 border">
+            <h3 class="fw-bold text-dark">{{ total }}</h3>
+            <p class="text-muted text-uppercase small mb-0 fw-bold">Conceitos no Vocabulário</p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow p-4 border">
+            <h3 class="fw-bold text-info">{{ total_artigos }}</h3>
+            <p class="text-muted text-uppercase small mb-0 fw-bold">Artigos Científicos Indexados</p>
+        </div>
+    </div>
+</div>
+
+{% if top_temas %}
+<div class="card shadow-sm">
+    <div class="card-header bg-secondary text-white fw-bold">Especialidades Clínicas Disponíveis</div>
+    <div class="card-body">
+        <div class="d-flex flex-wrap gap-2">
+            {% for tema, count in top_temas %}
+            <a href="/conceitos?tema={{ tema | urlencode }}" class="btn btn-sm btn-outline-dark">
+                {{ tema }} <span class="badge bg-info ms-1">{{ count }}</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

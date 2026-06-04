@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block title %}Novo Termo Médico{% endblock %}
+
+{% block content %}
+{% if erro %}
+<div class="alert alert-info shadow-sm mb-3">{{ erro }}</div>
+{% endif %}
+
+<div class="card shadow">
+    <div class="card-header bg-dark text-white">
+        <h2 class="mb-0">Novo Conceito Clínico</h2>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Termo (Galego) *</label>
+                    <input type="text" class="form-control" name="palavra" required placeholder="Ex: miocardio">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Género Gramatical</label>
+                    <input type="text" class="form-control" name="genero" placeholder="m, f, mf">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Sinónimos</label>
+                <input type="text" class="form-control" name="sinonimos" placeholder="Separados por vírgula">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Áreas Temáticas</label>
+                <input type="text" class="form-control" name="tema" placeholder="Ex: Anatomía">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Definição / Nota Clínica</label>
+                <textarea class="form-control" name="definicao" rows="3" placeholder="Insira a descrição médica do termo..."></textarea>
+            </div>
+
+            <h5 class="mt-4 border-bottom pb-2 text-secondary text-uppercase small fw-bold">Traduções Correspondentes</h5>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label font-monospace small">Português</label>
+                    <input type="text" class="form-control" name="pt">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label font-monospace small">Espanhol</label>
+                    <input type="text" class="form-control" name="es">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label font-monospace small">Inglês</label>
+                    <input type="text" class="form-control" name="en">
+                </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-top">
+                <button type="submit" class="btn btn-dark px-4">Adicionar Termo</button>
+                <a href="/conceitos" class="btn btn-outline-secondary">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

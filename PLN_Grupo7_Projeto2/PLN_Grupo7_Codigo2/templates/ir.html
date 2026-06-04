@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+{% block title %}Pesquisa de Artigos — MedLex{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <h2 class="text-dark fw-bold">Recuperação de Informação</h2>
+    <p class="text-muted">Efetue pesquisas textuais ou semânticas na base de dados de artigos biomédicos carregados.</p>
+</div>
+
+<div class="card shadow-sm p-4 bg-light mb-4">
+    <form method="GET" action="/ir">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control form-control-lg" name="q" value="{{ query }}" placeholder="Introduza termos, frases clínicas ou conceitos semânticos..." required>
+            <button type="submit" class="btn btn-dark px-4">Pesquisar</button>
+        </div>
+        
+        <div class="d-flex align-items-center gap-3">
+            <span class="small fw-bold text-secondary text-uppercase">Método de Busca:</span>
+            
+            <div class="form-check form-check-inline mb-0">
+                <input class="form-check-input" type="radio" name="method" id="methodTfidf" value="tfidf" {% if metodo == 'tfidf' or not metodo %}checked{% endif %}>
+                <label class="form-check-label text-dark small" for="methodTfidf">
+                    <strong>TF-IDF</strong> (Palavras-chave exatas)
+                </label>
+            </div>
+            
+            <div class="form-check form-check-inline mb-0">
+                <input class="form-check-input" type="radio" name="method" id="methodBert" value="bert" {% if metodo == 'bert' %}checked{% endif %}>
+                <label class="form-check-label text-dark small" for="methodBert">
+                    <strong>Sentence-BERT</strong> (Similaridade Semântica / IA)
+                </label>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% if query %}
+    <h5 class="text-muted mb-4">
+        Resultados ordenados por relevância via 
+        <span class="badge bg-dark">{% if metodo == 'bert' %}Sentence-BERT{% else %}TF-IDF{% endif %}</span> 
+        para "<strong>{{ query }}</strong>":
+    </h5>
+    
+    {% if resultados %}
+        {% for r in resultados %}
+        <div class="card shadow-sm mb-3 border">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <a href="/ir/artigo/{{ r.id }}?q={{ query }}&method={{ metodo }}" class="h5 text-decoration-none text-dark fw-bold mb-0">{{ r.titulo }}</a>
+                    <span class="badge bg-success">Score: {{ (r.score * 100) | round(2) }}%</span>
+                </div>
+                <p class="small text-muted mb-2"><strong>Autores:</strong> {{ r.autores }} &middot; <strong>Data:</strong> {{ r.ano }}</p>
+                <p class="card-text text-secondary">{{ r.resumo[:300] }}...</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-2">
+                    <div>
+                        {% for kw in r.keywords[:4] %}
+                        <span class="badge bg-light text-dark border me-1">{{ kw }}</span>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <a href="/ir/artigo/{{ r.id }}?q={{ query }}&method={{ metodo }}" class="btn btn-sm btn-outline-dark">Ler Resumo Completo</a>
+                        <a href="/qa?artigo_id={{ r.id }}" class="btn btn-sm btn-info ms-1">Perguntar (QA)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-warning">Nenhum artigo cumpre os requisitos de correspondência com a pesquisa efetuada neste método.</div>
+    {% endif %}
+{% else %}
+    <h5 class="text-secondary border-bottom pb-2 mb-3">Artigos Clínicos na Coleção ({{ artigos|length }})</h5>
+    <div class="row g-3">
+        {% for a in artigos %}
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm border p-3">
+                <div class="d-flex flex-column justify-content-between h-100">
+                    <div>
+                        <h6 class="fw-bold text-dark mb-1">{{ a.titulo }}</h6>
+                        <small class="text-muted d-block mb-2">{{ a.autores }}</small>
+                    </div>
+                    <div class="text-end pt-2 border-top mt-2">
+                        <a href="/ir/artigo/{{ a.id }}" class="btn btn-sm btn-dark">Ver Artigo &raquo;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}

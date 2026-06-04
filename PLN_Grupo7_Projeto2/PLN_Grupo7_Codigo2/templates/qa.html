@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block title %}Question Answering — MedLex{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-md-8">
+        {% if not artigo %}
+        <div class="alert alert-dark shadow-sm">
+            <strong>Módulo de Respostas Clínicas:</strong> Selecione um artigo médico no menu lateral direito para começar a fazer perguntas baseadas no extrator BERT.
+        </div>
+        {% else %}
+        <div class="card shadow mb-4">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0 fw-bold">{{ artigo.titulo }}</h4>
+                <small class="text-white-50">{{ artigo.autores }}</small>
+            </div>
+            <div class="card-body bg-light">
+                <p class="mb-0 text-dark" style="line-height:1.6;">{{ artigo.resumo }}</p>
+            </div>
+        </div>
+
+        <div class="card shadow-sm border border-secondary">
+            <div class="card-header bg-secondary text-white fw-bold">Interrogar Artigo</div>
+            <div class="card-body">
+                <form method="POST" action="/qa">
+                    <input type="hidden" name="artigo_id" value="{{ artigo.id }}">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Coloque uma questão sobre o resumo:</label>
+                        <input type="text" class="form-control" name="pergunta" value="{{ pergunta }}" placeholder="Ex: What was the age of the patient?" required>
+                    </div>
+                    <button type="submit" class="btn btn-dark">Obter Resposta</button>
+                </form>
+
+                {% if resposta %}
+                <div class="mt-4 border-top pt-3">
+                    {% if resposta.erro %}
+                    <div class="alert alert-info"><strong>Erro ao processar pipeline local:</strong> {{ resposta.erro }}</div>
+                    {% else %}
+                    <div class="p-3 bg-success text-white rounded shadow-sm mb-2">
+                        <h6 class="text-uppercase small font-monospace opacity-75 mb-1">Resposta Encontrada:</h6>
+                        <p class="h4 fw-bold mb-0">"{{ resposta.texto }}"</p>
+                    </div>
+                    <small class="text-muted">Confiança: <strong>{{ resposta.score }}%</strong></small>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white fw-bold text-uppercase small">Biblioteca de Artigos</div>
+            <div class="list-group list-group-flush" style="max-height: 550px; overflow-y: auto;">
+                {% for a in artigos %}
+                <a href="/qa?artigo_id={{ a.id }}" class="list-group-item list-group-item-action p-3 {% if artigo and artigo.id == a.id %}active bg-secondary text-white border-secondary{% endif %}">
+                    <span class="d-block fw-bold small text-truncate">{{ a.titulo }}</span>
+                    <small class="{% if artigo and artigo.id == a.id %}text-white-50{% else %}text-muted{% endif %}">{{ a.ano }}</small>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
